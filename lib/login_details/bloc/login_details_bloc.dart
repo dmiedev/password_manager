@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:clipboard/clipboard.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/services.dart';
 import 'package:password_manager/home/home.dart';
 
 part 'login_details_event.dart';
@@ -16,11 +16,11 @@ class LoginDetailsBloc extends Bloc<LoginDetailsEvent, LoginDetailsState> {
     );
   }
 
-  void _handleUserNameCopied(
+  Future<void> _handleUserNameCopied(
     LoginDetailsUserNameCopied event,
     Emitter<LoginDetailsState> emit,
-  ) {
-    FlutterClipboard.copy(state.login.userName);
+  ) async {
+    await Clipboard.setData(ClipboardData(text: state.login.userName));
     emit(
       state.copyWith(
         action: () => LoginDetailsAction.userNameCopy,
@@ -38,7 +38,7 @@ class LoginDetailsBloc extends Bloc<LoginDetailsEvent, LoginDetailsState> {
     Emitter<LoginDetailsState> emit,
   ) async {
     final password = state.password ?? _retrievePassword();
-    await FlutterClipboard.copy(password);
+    await Clipboard.setData(ClipboardData(text: password));
     emit(
       state.copyWith(
         action: () => LoginDetailsAction.passwordCopy,
