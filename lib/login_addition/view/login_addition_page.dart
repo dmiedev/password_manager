@@ -91,9 +91,9 @@ class _LoginAdditionViewState extends State<_LoginAdditionView> {
         ),
       ),
       TextFormField(
-        enabled: !isSaving,
         obscureText: true,
         enableSuggestions: false,
+        enabled: !isSaving,
         controller: _passwordFieldController,
         validator: _validateField,
         decoration: const InputDecoration(
