@@ -28,17 +28,17 @@ class LoginDetailsBloc extends Bloc<LoginDetailsEvent, LoginDetailsState> {
     );
   }
 
-  String _loadPassword() {
+  String _retrievePassword() {
     // TODO(dmiedev): load password
     return 'password';
   }
 
-  void _handlePasswordCopied(
+  Future<void> _handlePasswordCopied(
     LoginDetailsPasswordCopied event,
     Emitter<LoginDetailsState> emit,
-  ) {
-    final password = state.password ?? _loadPassword();
-    FlutterClipboard.copy(state.password!);
+  ) async {
+    final password = state.password ?? _retrievePassword();
+    await FlutterClipboard.copy(password);
     emit(
       state.copyWith(
         action: () => LoginDetailsAction.passwordCopy,
@@ -51,7 +51,7 @@ class LoginDetailsBloc extends Bloc<LoginDetailsEvent, LoginDetailsState> {
     LoginDetailsPasswordVisibilitySwitched event,
     Emitter<LoginDetailsState> emit,
   ) {
-    final password = state.password ?? _loadPassword();
+    final password = state.password ?? _retrievePassword();
     emit(
       state.copyWith(
         action: () => null,

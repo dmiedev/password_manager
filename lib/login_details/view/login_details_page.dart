@@ -35,8 +35,10 @@ class _LoginDetailsView extends StatefulWidget {
 }
 
 class _LoginDetailsViewState extends State<_LoginDetailsView> {
+  static const _hiddenPassword = '**********';
+
   late final TextEditingController _userNameFieldController;
-  final _passwordFieldController = TextEditingController(text: '**********');
+  final _passwordFieldController = TextEditingController(text: _hiddenPassword);
 
   @override
   void initState() {
@@ -51,7 +53,9 @@ class _LoginDetailsViewState extends State<_LoginDetailsView> {
       appBar: AppBar(
         title: const Text('Login Details'),
       ),
-      body: BlocBuilder<LoginDetailsBloc, LoginDetailsState>(
+      body: BlocConsumer<LoginDetailsBloc, LoginDetailsState>(
+        listener: _handleStateChange,
+        buildWhen: (previous, current) => false,
         builder: (context, state) {
           return ListView(
             children: [
@@ -98,7 +102,7 @@ class _LoginDetailsViewState extends State<_LoginDetailsView> {
               const PasswordVisibilityButton(),
               IconButton(
                 icon: const Icon(Icons.copy),
-                onPressed: () {},
+                onPressed: _handlePasswordCopyButtonPress,
               ),
             ],
           ),
@@ -107,5 +111,34 @@ class _LoginDetailsViewState extends State<_LoginDetailsView> {
     ];
   }
 
-  void _handleUserNameCopyButtonPress() {}
+  void _handleStateChange(BuildContext context, LoginDetailsState state) {
+    _passwordFieldController.text =
+        state.passwordIsVisible ? state.password! : _hiddenPassword;
+    if (state.action != null) {
+      ScaffoldMessenger.of(context)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(
+          SnackBar(
+            content: Text(_getActionSnackBarString(state.action!)),
+          ),
+        );
+    }
+  }
+
+  String _getActionSnackBarString(LoginDetailsAction action) {
+    switch (action) {
+      case LoginDetailsAction.userNameCopy:
+        return 'User name copied!';
+      case LoginDetailsAction.passwordCopy:
+        return 'Password copied!';
+    }
+  }
+
+  void _handleUserNameCopyButtonPress() {
+    context.read<LoginDetailsBloc>().add(const LoginDetailsUserNameCopied());
+  }
+
+  void _handlePasswordCopyButtonPress() {
+    context.read<LoginDetailsBloc>().add(const LoginDetailsPasswordCopied());
+  }
 }

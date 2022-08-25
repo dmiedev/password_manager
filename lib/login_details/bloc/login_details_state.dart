@@ -5,7 +5,7 @@ enum LoginDetailsAction {
   passwordCopy,
 }
 
-class LoginDetailsState extends Equatable {
+class LoginDetailsState {
   const LoginDetailsState({
     required this.login,
     this.password,
@@ -31,12 +31,4 @@ class LoginDetailsState extends Equatable {
       action: action != null ? action() : this.action,
     );
   }
-
-  @override
-  List<Object?> get props => [
-        login,
-        password,
-        passwordIsVisible,
-        action,
-      ];
 }
