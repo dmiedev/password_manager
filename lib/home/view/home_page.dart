@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:password_manager/home/bloc/home_bloc.dart';
 import 'package:password_manager/home/widgets/widgets.dart';
-import 'package:password_manager/login_addition/view/login_addition_page.dart';
+import 'package:password_manager/login_addition/login_addition.dart';
+import 'package:password_manager/login_details/login_details.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -41,6 +42,7 @@ class _HomeView extends StatelessWidget {
           return LoginTile(
             serviceName: login.serviceName,
             userName: login.userName,
+            onTap: () => _handleLoginTileTap(context, login),
           );
         },
       );
@@ -49,6 +51,13 @@ class _HomeView extends StatelessWidget {
     } else {
       return const Center(child: CircularProgressIndicator());
     }
+  }
+
+  void _handleLoginTileTap(BuildContext context, Login login) {
+    Navigator.push(
+      context,
+      LoginDetailsPage.getRoute(login: login),
+    );
   }
 
   Widget? _buildFloatingActionButton(BuildContext context, HomeState state) {
