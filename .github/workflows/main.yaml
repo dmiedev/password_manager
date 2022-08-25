@@ -11,3 +11,5 @@ jobs:
     with:
       flutter_channel: stable
       flutter_version: 3.0.5
+      test_recursion: true
+      min_coverage: 0
