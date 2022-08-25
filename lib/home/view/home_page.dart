@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:password_manager/home/bloc/home_bloc.dart';
 import 'package:password_manager/home/widgets/widgets.dart';
+import 'package:password_manager/login_addition/view/login_addition_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -25,7 +26,7 @@ class _HomeView extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Password Manager'),
         ),
-        floatingActionButton: _buildFloatingActionButton(state),
+        floatingActionButton: _buildFloatingActionButton(context, state),
         body: _buildBody(context, state),
       ),
     );
@@ -50,15 +51,17 @@ class _HomeView extends StatelessWidget {
     }
   }
 
-  Widget? _buildFloatingActionButton(HomeState state) {
+  Widget? _buildFloatingActionButton(BuildContext context, HomeState state) {
     if (state is! HomeLoadSuccess) {
       return null;
     }
     return FloatingActionButton(
-      onPressed: _handleAddButtonPress,
+      onPressed: () => _handleAddButtonPress(context),
       child: const Icon(Icons.add),
     );
   }
 
-  void _handleAddButtonPress() {}
+  void _handleAddButtonPress(BuildContext context) {
+    Navigator.of(context).push(LoginAdditionPage.route);
+  }
 }
