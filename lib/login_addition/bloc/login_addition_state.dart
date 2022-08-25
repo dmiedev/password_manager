@@ -1,10 +1,21 @@
 part of 'login_addition_bloc.dart';
 
-abstract class LoginAdditionState extends Equatable {
+abstract class LoginAdditionState {
   const LoginAdditionState();
-  
-  @override
-  List<Object> get props => [];
 }
 
-class LoginAdditionInitial extends LoginAdditionState {}
+class LoginAdditionInitial extends LoginAdditionState {
+  const LoginAdditionInitial();
+}
+
+class LoginAdditionSaveInProgress extends LoginAdditionState {
+  const LoginAdditionSaveInProgress();
+}
+
+class LoginAdditionSaveSuccess extends LoginAdditionState {
+  const LoginAdditionSaveSuccess();
+}
+
+class LoginAdditionSaveFailure extends LoginAdditionState {
+  const LoginAdditionSaveFailure();
+}
