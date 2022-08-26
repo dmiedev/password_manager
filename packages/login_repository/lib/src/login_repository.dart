@@ -1,4 +1,5 @@
 import 'package:hive/hive.dart';
+import 'package:login_repository/src/exceptions.dart';
 import 'package:login_repository/src/models/models.dart';
 
 class LoginRepository {
@@ -25,17 +26,13 @@ class LoginRepository {
 
   void _checkIsInitialized() {
     if (_box == null) {
-      throw FilterRepositoryNotInitializedException();
+      throw LoginRepositoryNotInitializedException();
     }
   }
 
   List<Login> get logins {
     _checkIsInitialized();
-    try {
-      return _box!.values.toList();
-    } on Exception {
-      throw Exception();
-    }
+    return _box!.values.toList();
   }
 
   Future<void> saveLogin(Login login) {
@@ -43,9 +40,7 @@ class LoginRepository {
     try {
       return _box!.add(login);
     } on Exception {
-      throw Exception();
+      throw LoginSaveException();
     }
   }
 }
-
-class FilterRepositoryNotInitializedException implements Exception {}
