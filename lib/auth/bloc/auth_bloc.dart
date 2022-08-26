@@ -8,7 +8,7 @@ part 'auth_state.dart';
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc({required AuthRepository authRepository})
       : _authRepository = authRepository,
-        super(const AuthState(status: AuthStatus.none)) {
+        super(AuthState(status: AuthStatus.none)) {
     on<AuthRequested>(_handleRequested);
   }
 
@@ -18,11 +18,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     AuthRequested event,
     Emitter<AuthState> emit,
   ) async {
+    late final AuthStatus status;
     try {
       await _authRepository.authenticate(message: event.displayMessage);
-      emit(const AuthState(status: AuthStatus.success));
+      status = AuthStatus.success;
+    } on AuthenticationLockNotSetException {
+      status = AuthStatus.screenLockNotSet;
     } on Exception {
-      emit(const AuthState(status: AuthStatus.failure));
+      status = AuthStatus.failure;
     }
+    emit(AuthState(status: status));
   }
 }

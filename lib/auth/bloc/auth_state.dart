@@ -2,15 +2,13 @@ part of 'auth_bloc.dart';
 
 enum AuthStatus {
   none,
+  screenLockNotSet,
   success,
   failure,
 }
 
-class AuthState extends Equatable {
-  const AuthState({required this.status});
+class AuthState {
+  AuthState({required this.status});
 
   final AuthStatus status;
-
-  @override
-  List<Object> get props => [status];
 }

@@ -2,6 +2,7 @@ import 'package:auth_repository/auth_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:password_manager/auth/bloc/auth_bloc.dart';
+import 'package:password_manager/auth/widgets/widgets.dart';
 import 'package:password_manager/home/home.dart';
 
 class AuthPage extends StatelessWidget {
@@ -53,10 +54,17 @@ class _AuthView extends StatelessWidget {
   void _handleStateChange(BuildContext context, AuthState state) {
     if (state.status == AuthStatus.success) {
       Navigator.pushReplacement(context, HomePage.route);
-    } else if (state.status == AuthStatus.failure) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Failed to authenticate!')),
+    } else if (state.status == AuthStatus.screenLockNotSet) {
+      showDialog<void>(
+        context: context,
+        builder: (context) => const ScreenLockDialog(),
       );
+    } else if (state.status == AuthStatus.failure) {
+      ScaffoldMessenger.of(context)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(
+          const SnackBar(content: Text('Failed to authenticate!')),
+        );
     }
   }
 
