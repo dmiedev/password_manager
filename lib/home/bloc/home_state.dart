@@ -1,18 +1,5 @@
 part of 'home_bloc.dart';
 
-class Login extends Equatable {
-  const Login({
-    required this.userName,
-    required this.serviceName,
-  });
-
-  final String userName;
-  final String serviceName;
-
-  @override
-  List<Object?> get props => [userName, serviceName];
-}
-
 @immutable
 abstract class HomeState extends Equatable {
   const HomeState();

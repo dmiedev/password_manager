@@ -16,6 +16,8 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   intl: ^0.17.0
+  login_repository:
+    path: packages/login_repository
 
 dev_dependencies:
   bloc_test: ^9.1.0
