@@ -1,5 +1,7 @@
 abstract class LoginRepositoryException implements Exception {}
 
-class LoginSaveException extends LoginRepositoryException {}
+class LoginDataSaveException extends LoginRepositoryException {}
+
+class PasswordLoadException extends LoginRepositoryException {}
 
 class LoginRepositoryNotInitializedException extends LoginRepositoryException {}

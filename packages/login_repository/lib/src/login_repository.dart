@@ -1,14 +1,21 @@
-import 'package:hive/hive.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:login_repository/src/exceptions.dart';
 import 'package:login_repository/src/models/models.dart';
 
 class LoginRepository {
-  LoginRepository({Box<Login>? box}) : _box = box {
+  LoginRepository({
+    Box<Login>? loginBox,
+    FlutterSecureStorage? passwordStorage,
+  })  : _loginBox = loginBox,
+        _passwordStorage = passwordStorage ?? const FlutterSecureStorage() {
     _registerAdapters();
   }
 
-  static const _boxName = 'logins';
-  Box<Login>? _box;
+  static const _loginBoxName = 'logins';
+  Box<Login>? _loginBox;
+
+  final FlutterSecureStorage _passwordStorage;
 
   void _registerAdapters() {
     _registerAdapter(LoginAdapter());
@@ -21,26 +28,37 @@ class LoginRepository {
   }
 
   Future<void> initialize() async {
-    _box = await Hive.openBox(_boxName);
+    await Hive.initFlutter();
+    _loginBox = await Hive.openBox(_loginBoxName);
   }
 
   void _checkIsInitialized() {
-    if (_box == null) {
+    if (_loginBox == null) {
       throw LoginRepositoryNotInitializedException();
     }
   }
 
   List<Login> get logins {
     _checkIsInitialized();
-    return _box!.values.toList();
+    return _loginBox!.values.toList();
   }
 
-  Future<void> saveLogin(Login login) {
+  Future<void> saveLoginData(Login login, String password) async {
     _checkIsInitialized();
     try {
-      return _box!.add(login);
+      final key = await _loginBox!.add(login);
+      await _passwordStorage.write(key: key.toString(), value: password);
     } on Exception {
-      throw LoginSaveException();
+      throw LoginDataSaveException();
+    }
+  }
+
+  Future<String?> getPassword(Login login) async {
+    try {
+      final key = login.key as int;
+      return _passwordStorage.read(key: key.toString());
+    } on Exception {
+      throw PasswordLoadException();
     }
   }
 }
