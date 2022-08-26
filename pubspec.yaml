@@ -8,6 +8,8 @@ environment:
   flutter: 3.0.5
 
 dependencies:
+  auth_repository:
+    path: packages/auth_repository
   bloc: ^8.1.0
   equatable: ^2.0.5
   flutter:
