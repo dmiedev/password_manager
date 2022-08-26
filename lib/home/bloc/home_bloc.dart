@@ -11,14 +11,20 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     required LoginRepository loginRepository,
   })  : _loginRepository = loginRepository,
         super(const HomeInitial()) {
-    on<HomeLoaded>(_handleLoaded);
+    on<HomeSubscriptionRequested>(_handleSubscriptionRequested);
   }
 
   final LoginRepository _loginRepository;
 
-  void _handleLoaded(HomeLoaded event, Emitter<HomeState> emit) {
+  Future<void> _handleSubscriptionRequested(
+    HomeSubscriptionRequested event,
+    Emitter<HomeState> emit,
+  ) async {
     try {
-      emit(HomeLoadSuccess(logins: _loginRepository.logins));
+      await emit.forEach<List<Login>>(
+        _loginRepository.loginStream,
+        onData: (logins) => HomeLoadSuccess(logins: logins),
+      );
     } on Exception {
       emit(const HomeLoadFailure());
     }

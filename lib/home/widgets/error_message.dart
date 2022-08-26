@@ -22,6 +22,6 @@ class ErrorMessage extends StatelessWidget {
   }
 
   void _handlePress(BuildContext context) {
-    context.read<HomeBloc>().add(const HomeLoaded());
+    context.read<HomeBloc>().add(const HomeSubscriptionRequested());
   }
 }

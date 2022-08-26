@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:login_repository/login_repository.dart';
 import 'package:password_manager/login_addition/bloc/login_addition_bloc.dart';
 
 class LoginAdditionPage extends StatelessWidget {
@@ -14,7 +15,9 @@ class LoginAdditionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => LoginAdditionBloc(),
+      create: (context) => LoginAdditionBloc(
+        loginRepository: RepositoryProvider.of<LoginRepository>(context),
+      ),
       child: const _LoginAdditionView(),
     );
   }
