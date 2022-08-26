@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:password_manager/home/bloc/home_bloc.dart';
+import 'package:login_repository/login_repository.dart';
 import 'package:password_manager/login_details/bloc/login_details_bloc.dart';
 import 'package:password_manager/login_details/widgets/widgets.dart';
 

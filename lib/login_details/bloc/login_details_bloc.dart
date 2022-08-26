@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/services.dart';
-import 'package:password_manager/home/home.dart';
+import 'package:login_repository/login_repository.dart';
 
 part 'login_details_event.dart';
 part 'login_details_state.dart';

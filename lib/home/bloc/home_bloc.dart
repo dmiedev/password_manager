@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:login_repository/login_repository.dart';
 import 'package:meta/meta.dart';
 
 part 'home_event.dart';
@@ -17,11 +18,11 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     emit(const HomeLoadInProgress());
     try {
       // TODO(dmiedev): load real logins
-      const logins = [
+      final logins = [
         Login(serviceName: 'Service A', userName: 'User A'),
         Login(serviceName: 'Service B', userName: 'User B'),
       ];
-      emit(const HomeLoadSuccess(logins: logins));
+      emit(HomeLoadSuccess(logins: logins));
     } on Exception {
       emit(const HomeLoadFailure());
     }
