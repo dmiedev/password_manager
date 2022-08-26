@@ -21,7 +21,10 @@ class LoginDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => LoginDetailsBloc(login: login),
+      create: (context) => LoginDetailsBloc(
+        login: login,
+        loginRepository: RepositoryProvider.of<LoginRepository>(context),
+      ),
       child: const _LoginDetailsView(),
     );
   }
