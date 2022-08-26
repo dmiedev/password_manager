@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:login_repository/login_repository.dart';
-import 'package:password_manager/home/home.dart';
+import 'package:password_manager/auth/auth.dart';
 import 'package:password_manager/l10n/l10n.dart';
 
 class App extends StatelessWidget {
@@ -36,7 +36,7 @@ class _AppView extends StatelessWidget {
         GlobalMaterialLocalizations.delegate,
       ],
       supportedLocales: AppLocalizations.supportedLocales,
-      home: const HomePage(),
+      home: const AuthPage(),
       title: 'Password Manager',
     );
   }
