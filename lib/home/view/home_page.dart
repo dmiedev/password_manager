@@ -12,7 +12,9 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => HomeBloc()..add(const HomeLoaded()),
+      create: (context) => HomeBloc(
+        loginRepository: RepositoryProvider.of<LoginRepository>(context),
+      )..add(const HomeLoaded()),
       child: const _HomeView(),
     );
   }

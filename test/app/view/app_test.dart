@@ -1,12 +1,23 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:login_repository/login_repository.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:password_manager/app/app.dart';
-import 'package:password_manager/home/view/home_page.dart';
+
+class MockLoginRepository extends Mock implements LoginRepository {}
 
 void main() {
+  late LoginRepository loginRepository;
+
+  setUp(() {
+    loginRepository = MockLoginRepository();
+  });
+
   group('App', () {
-    testWidgets('renders CounterPage', (tester) async {
-      await tester.pumpWidget(const App());
-      expect(find.byType(HomePage), findsOneWidget);
+    test('returns normally', () {
+      expect(
+        () => App(loginRepository: loginRepository),
+        returnsNormally,
+      );
     });
   });
 }

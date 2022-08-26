@@ -1,13 +1,14 @@
-// Copyright (c) 2022, Very Good Ventures
-// https://verygood.ventures
-//
-// Use of this source code is governed by an MIT-style
-// license that can be found in the LICENSE file or at
-// https://opensource.org/licenses/MIT.
-
+import 'package:login_repository/login_repository.dart';
 import 'package:password_manager/app/app.dart';
 import 'package:password_manager/bootstrap.dart';
 
-void main() {
-  bootstrap(() => const App());
+Future<void> main() async {
+  final loginRepository = LoginRepository();
+  await loginRepository.initialize();
+
+  await bootstrap(
+    () => App(
+      loginRepository: loginRepository,
+    ),
+  );
 }
