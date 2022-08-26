@@ -12,10 +12,6 @@ class HomeInitial extends HomeState {
   const HomeInitial();
 }
 
-class HomeLoadInProgress extends HomeState {
-  const HomeLoadInProgress();
-}
-
 class HomeLoadSuccess extends HomeState {
   const HomeLoadSuccess({required this.logins});
 

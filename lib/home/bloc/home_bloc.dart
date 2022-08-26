@@ -7,22 +7,24 @@ part 'home_event.dart';
 part 'home_state.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
-  HomeBloc() : super(const HomeInitial()) {
-    on<HomeLoaded>(_handleLoaded);
+  HomeBloc({
+    required LoginRepository loginRepository,
+  })  : _loginRepository = loginRepository,
+        super(const HomeInitial()) {
+    on<HomeSubscriptionRequested>(_handleSubscriptionRequested);
   }
 
-  void _handleLoaded(HomeLoaded event, Emitter<HomeState> emit) {
-    if (state is HomeLoadInProgress) {
-      return;
-    }
-    emit(const HomeLoadInProgress());
+  final LoginRepository _loginRepository;
+
+  Future<void> _handleSubscriptionRequested(
+    HomeSubscriptionRequested event,
+    Emitter<HomeState> emit,
+  ) async {
     try {
-      // TODO(dmiedev): load real logins
-      final logins = [
-        Login(serviceName: 'Service A', userName: 'User A'),
-        Login(serviceName: 'Service B', userName: 'User B'),
-      ];
-      emit(HomeLoadSuccess(logins: logins));
+      await emit.forEach<List<Login>>(
+        _loginRepository.loginStream,
+        onData: (logins) => HomeLoadSuccess(logins: logins),
+      );
     } on Exception {
       emit(const HomeLoadFailure());
     }

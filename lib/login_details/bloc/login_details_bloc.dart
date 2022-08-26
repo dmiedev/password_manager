@@ -7,14 +7,19 @@ part 'login_details_event.dart';
 part 'login_details_state.dart';
 
 class LoginDetailsBloc extends Bloc<LoginDetailsEvent, LoginDetailsState> {
-  LoginDetailsBloc({required Login login})
-      : super(LoginDetailsState(login: login)) {
+  LoginDetailsBloc({
+    required Login login,
+    required LoginRepository loginRepository,
+  })  : _loginRepository = loginRepository,
+        super(LoginDetailsState(login: login)) {
     on<LoginDetailsUserNameCopied>(_handleUserNameCopied);
     on<LoginDetailsPasswordCopied>(_handlePasswordCopied);
     on<LoginDetailsPasswordVisibilitySwitched>(
       _handlePasswordVisibilitySwitched,
     );
   }
+
+  final LoginRepository _loginRepository;
 
   Future<void> _handleUserNameCopied(
     LoginDetailsUserNameCopied event,
@@ -28,16 +33,15 @@ class LoginDetailsBloc extends Bloc<LoginDetailsEvent, LoginDetailsState> {
     );
   }
 
-  String _retrievePassword() {
-    // TODO(dmiedev): load password
-    return 'password';
+  Future<String> _retrievePassword() async {
+    return await _loginRepository.getPassword(login: state.login) ?? '';
   }
 
   Future<void> _handlePasswordCopied(
     LoginDetailsPasswordCopied event,
     Emitter<LoginDetailsState> emit,
   ) async {
-    final password = state.password ?? _retrievePassword();
+    final password = state.password ?? await _retrievePassword();
     await Clipboard.setData(ClipboardData(text: password));
     emit(
       state.copyWith(
@@ -47,11 +51,11 @@ class LoginDetailsBloc extends Bloc<LoginDetailsEvent, LoginDetailsState> {
     );
   }
 
-  void _handlePasswordVisibilitySwitched(
+  Future<void> _handlePasswordVisibilitySwitched(
     LoginDetailsPasswordVisibilitySwitched event,
     Emitter<LoginDetailsState> emit,
-  ) {
-    final password = state.password ?? _retrievePassword();
+  ) async {
+    final password = state.password ?? await _retrievePassword();
     emit(
       state.copyWith(
         action: () => null,

@@ -12,7 +12,9 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => HomeBloc()..add(const HomeLoaded()),
+      create: (context) => HomeBloc(
+        loginRepository: RepositoryProvider.of<LoginRepository>(context),
+      )..add(const HomeSubscriptionRequested()),
       child: const _HomeView(),
     );
   }
@@ -36,6 +38,9 @@ class _HomeView extends StatelessWidget {
 
   Widget _buildBody(BuildContext context, HomeState state) {
     if (state is HomeLoadSuccess) {
+      if (state.logins.isEmpty) {
+        return const Center(child: Text('No logins'));
+      }
       return ListView.builder(
         itemCount: state.logins.length,
         itemBuilder: (context, index) {
