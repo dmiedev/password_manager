@@ -38,6 +38,9 @@ class _HomeView extends StatelessWidget {
 
   Widget _buildBody(BuildContext context, HomeState state) {
     if (state is HomeLoadSuccess) {
+      if (state.logins.isEmpty) {
+        return const Center(child: Text('No logins'));
+      }
       return ListView.builder(
         itemCount: state.logins.length,
         itemBuilder: (context, index) {
