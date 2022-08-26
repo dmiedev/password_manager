@@ -9,6 +9,12 @@ import 'package:password_manager/login_details/login_details.dart';
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
+  static Route<HomePage> get route {
+    return MaterialPageRoute(
+      builder: (context) => const HomePage(),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
