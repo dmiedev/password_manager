@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:login_repository/login_repository.dart';
+import 'package:password_manager/l10n/l10n.dart';
 import 'package:password_manager/login_addition/bloc/login_addition_bloc.dart';
 
 class LoginAdditionPage extends StatelessWidget {
@@ -38,9 +39,10 @@ class _LoginAdditionViewState extends State<_LoginAdditionView> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('New Login'),
+        title: Text(l10n.loginAdditionPageAppBarTitle),
       ),
       body: MultiBlocListener(
         listeners: [
@@ -72,6 +74,7 @@ class _LoginAdditionViewState extends State<_LoginAdditionView> {
   }
 
   List<Widget> _buildFields() {
+    final l10n = AppLocalizations.of(context);
     final isSaving =
         context.watch<LoginAdditionBloc>().state is LoginAdditionSaveInProgress;
     return [
@@ -79,18 +82,18 @@ class _LoginAdditionViewState extends State<_LoginAdditionView> {
         enabled: !isSaving,
         controller: _serviceNameFieldController,
         validator: _validateField,
-        decoration: const InputDecoration(
-          prefixIcon: Icon(Icons.business),
-          labelText: 'Service Name',
+        decoration: InputDecoration(
+          prefixIcon: const Icon(Icons.business),
+          labelText: l10n.serviceNameFieldLabel,
         ),
       ),
       TextFormField(
         enabled: !isSaving,
         controller: _userNameFieldController,
         validator: _validateField,
-        decoration: const InputDecoration(
-          prefixIcon: Icon(Icons.person),
-          labelText: 'User Name',
+        decoration: InputDecoration(
+          prefixIcon: const Icon(Icons.person),
+          labelText: l10n.userNameFieldLabel,
         ),
       ),
       TextFormField(
@@ -99,15 +102,16 @@ class _LoginAdditionViewState extends State<_LoginAdditionView> {
         enabled: !isSaving,
         controller: _passwordFieldController,
         validator: _validateField,
-        decoration: const InputDecoration(
-          prefixIcon: Icon(Icons.password),
-          labelText: 'Password',
+        decoration: InputDecoration(
+          prefixIcon: const Icon(Icons.password),
+          labelText: l10n.passwordFieldLabel,
         ),
       ),
     ];
   }
 
   Widget _buildAddButton() {
+    final l10n = AppLocalizations.of(context);
     return Column(
       children: [
         SizedBox(
@@ -119,13 +123,13 @@ class _LoginAdditionViewState extends State<_LoginAdditionView> {
                   onPressed: () {},
                   backgroundColor: Colors.grey,
                   icon: const CircularProgressIndicator(),
-                  label: const Text('Saving...'),
+                  label: Text(l10n.savingButtonLabel),
                 );
               }
               return FloatingActionButton.extended(
                 onPressed: _handleAddButtonPress,
                 icon: const Icon(Icons.add),
-                label: const Text('Add Login'),
+                label: Text(l10n.addLoginButtonLabel),
               );
             },
           ),
@@ -138,7 +142,8 @@ class _LoginAdditionViewState extends State<_LoginAdditionView> {
     if (value != null && value.isNotEmpty) {
       return null;
     }
-    return 'Incorrect value!';
+    final l10n = AppLocalizations.of(context);
+    return l10n.incorrectValueFieldErrorMessage;
   }
 
   void _handleAddButtonPress() {
@@ -159,10 +164,11 @@ class _LoginAdditionViewState extends State<_LoginAdditionView> {
   }
 
   void _handleSaveFailure() {
+    final l10n = AppLocalizations.of(context);
     ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
       ..showSnackBar(
-        const SnackBar(content: Text('Failed to save login!')),
+        SnackBar(content: Text(l10n.loginSaveFailureMessage)),
       );
   }
 

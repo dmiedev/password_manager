@@ -1,7 +1,118 @@
 {
     "@@locale": "en",
-    "counterAppBarTitle": "Counter",
-    "@counterAppBarTitle": {
-        "description": "Text shown in the AppBar of the Counter Page"
+
+    "authPageText": "Password Manager is locked! 🔒",
+    "@authPageText": {
+        "description": "Text shown on the AuthPage."
+    },
+
+    "authenticateButtonLabel": "AUTHENTICATE",
+    "@authenticateButtonLabel": {
+        "description": "The label of the Authenticate button."
+    },
+
+    "authenticationFailureMessage": "Failed to authenticate!",
+    "@authenticationFailureMessage": {
+        "description": "Message shown when authentication has failed."
+    },
+
+    "authenticationDialogTitle": "Authenticate to access Password Manager",
+    "@authenticationDialogTitle": {
+        "description": "Text shown in the title of the authentication dialog."
+    },
+
+    "screenLockDialogTitle": "No screen lock set",
+    "@screenLockDialogTitle": {
+        "description": "The title of the screen lock dialog."
+    },
+
+    "screenLockDialogBody": "Password Manager requires a screen lock to be set.",
+    "@screenLockDialogBody": {
+        "description": "The body of the screen lock dialog."
+    },
+
+    "cancelButtonLabel": "CANCEL",
+    "@cancelButtonLabel": {
+        "description": "The label of the Cancel button."
+    },
+
+    "goToSettingsButtonLabel": "GO TO SETTINGS",
+    "@goToSettingsButtonLabel": {
+        "description": "The label of the Go to Settings button."
+    },
+
+    "homePageAppBarTitle": "Password Manager",
+    "@homePageAppBarTitle": {
+        "description": "The title in the app bar of the home page."
+    },
+
+    "noLoginsMessage": "No logins",
+    "@noLoginsMessage": {
+        "description": "A message indicating that no logins have been saved."
+    },
+
+    "errorOccurredMessage": "An error occurred",
+    "@errorOccurredMessage": {
+        "description": "A message indicating that an error has occurred."
+    },
+
+    "retryButtonLabel": "RETRY",
+    "@retryButtonLabel": {
+        "description": "The label of the Retry button."
+    },
+
+    "loginAdditionPageAppBarTitle": "New Login",
+    "@loginAdditionPageAppBarTitle": {
+        "description": "The title in the app bar of the login addition page."
+    },
+
+    "serviceNameFieldLabel": "Service Name",
+    "@serviceNameFieldLabel": {
+        "description": "The label of the Service Name field."
+    },
+
+    "userNameFieldLabel": "User Name",
+    "@userNameFieldLabel": {
+        "description": "The label of the User Name field."
+    },
+
+    "passwordFieldLabel": "Password",
+    "@passwordFieldLabel": {
+        "description": "The label of the Password field."
+    },
+
+    "addLoginButtonLabel": "ADD LOGIN",
+    "@addLoginButtonLabel": {
+        "description": "The label of the Add Login button."
+    },
+
+    "savingButtonLabel": "SAVING...",
+    "@savingButtonLabel": {
+        "description": "The label of a button that indicates loading is in progress."
+    },
+
+    "incorrectValueFieldErrorMessage": "Incorrect value!",
+    "@incorrectValueFieldErrorMessage": {
+        "description": "An error message displayed near a field indicating incorrect value has been entered."
+    },
+
+    "loginSaveFailureMessage": "Failed to save login!",
+    "@loginSaveFailureMessage": {
+        "description": "A message indicating that login save has failed."
+    },
+
+    "loginDetailsPageAppBarTitle": "Login Details",
+    "@loginDetailsPageAppBarTitle": {
+        "description": "The title in the app bar of the Login Details page."
+    },
+
+    "userNameCopiedMessage": "User name copied!",
+    "@userNameCopiedMessage": {
+        "description": "A message indicating that user name has been copied."
+    },
+
+    "passwordCopiedMessage": "Password copied!",
+    "@passwordCopiedMessage": {
+        "description": "A message indicating that password has been copied."
     }
 }

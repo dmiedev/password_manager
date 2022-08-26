@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:login_repository/login_repository.dart';
+import 'package:password_manager/l10n/l10n.dart';
 import 'package:password_manager/login_details/bloc/login_details_bloc.dart';
 import 'package:password_manager/login_details/widgets/widgets.dart';
 
@@ -52,9 +53,10 @@ class _LoginDetailsViewState extends State<_LoginDetailsView> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Login Details'),
+        title: Text(l10n.loginDetailsPageAppBarTitle),
       ),
       body: BlocConsumer<LoginDetailsBloc, LoginDetailsState>(
         listener: _handleStateChange,
@@ -78,6 +80,7 @@ class _LoginDetailsViewState extends State<_LoginDetailsView> {
   }
 
   List<Widget> _buildFields() {
+    final l10n = AppLocalizations.of(context);
     return [
       TextField(
         readOnly: true,
@@ -85,7 +88,7 @@ class _LoginDetailsViewState extends State<_LoginDetailsView> {
         controller: _userNameFieldController,
         decoration: InputDecoration(
           prefixIcon: const Icon(Icons.person),
-          labelText: 'User Name',
+          labelText: l10n.userNameFieldLabel,
           suffix: IconButton(
             icon: const Icon(Icons.copy),
             onPressed: _handleUserNameCopyButtonPress,
@@ -98,7 +101,7 @@ class _LoginDetailsViewState extends State<_LoginDetailsView> {
         controller: _passwordFieldController,
         decoration: InputDecoration(
           prefixIcon: const Icon(Icons.password),
-          labelText: 'Password',
+          labelText: l10n.passwordFieldLabel,
           suffix: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -129,11 +132,12 @@ class _LoginDetailsViewState extends State<_LoginDetailsView> {
   }
 
   String _getActionSnackBarString(LoginDetailsAction action) {
+    final l10n = AppLocalizations.of(context);
     switch (action) {
       case LoginDetailsAction.userNameCopy:
-        return 'User name copied!';
+        return l10n.userNameCopiedMessage;
       case LoginDetailsAction.passwordCopy:
-        return 'Password copied!';
+        return l10n.passwordCopiedMessage;
     }
   }
 

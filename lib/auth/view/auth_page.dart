@@ -4,19 +4,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:password_manager/auth/bloc/auth_bloc.dart';
 import 'package:password_manager/auth/widgets/widgets.dart';
 import 'package:password_manager/home/home.dart';
+import 'package:password_manager/l10n/l10n.dart';
 
 class AuthPage extends StatelessWidget {
   const AuthPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     return BlocProvider(
       create: (context) => AuthBloc(
         authRepository: RepositoryProvider.of<AuthRepository>(context),
       )..add(
-          const AuthRequested(
-            displayMessage: 'Authenticate to access Password Manager',
-          ),
+          AuthRequested(displayMessage: l10n.authenticationDialogTitle),
         ),
       child: const _AuthView(),
     );
@@ -28,6 +28,7 @@ class _AuthView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     return Scaffold(
       body: BlocListener<AuthBloc, AuthState>(
         listener: _handleStateChange,
@@ -36,13 +37,13 @@ class _AuthView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                'Password Manager is locked! 🔒',
+                l10n.authPageText,
                 style: Theme.of(context).textTheme.headline5,
               ),
               const SizedBox(height: 20),
               TextButton(
                 onPressed: () => _handleAuthenticateButtonPress(context),
-                child: const Text('AUTHENTICATE'),
+                child: Text(l10n.authenticateButtonLabel),
               ),
             ],
           ),
@@ -60,19 +61,19 @@ class _AuthView extends StatelessWidget {
         builder: (context) => const ScreenLockDialog(),
       );
     } else if (state.status == AuthStatus.failure) {
+      final l10n = AppLocalizations.of(context);
       ScaffoldMessenger.of(context)
         ..hideCurrentSnackBar()
         ..showSnackBar(
-          const SnackBar(content: Text('Failed to authenticate!')),
+          SnackBar(content: Text(l10n.authenticationFailureMessage)),
         );
     }
   }
 
   void _handleAuthenticateButtonPress(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     context.read<AuthBloc>().add(
-          const AuthRequested(
-            displayMessage: 'Authenticate to access Password Manager',
-          ),
+          AuthRequested(displayMessage: l10n.authenticationDialogTitle),
         );
   }
 }

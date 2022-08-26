@@ -1,22 +1,24 @@
 import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
+import 'package:password_manager/l10n/l10n.dart';
 
 class ScreenLockDialog extends StatelessWidget {
   const ScreenLockDialog({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     return AlertDialog(
-      title: const Text('No screen lock set'),
-      content: const Text('Password Manager requires a screen lock to be set.'),
+      title: Text(l10n.screenLockDialogTitle),
+      content: Text(l10n.screenLockDialogBody),
       actions: [
         TextButton(
           onPressed: () => _handleCancelButtonPress(context),
-          child: const Text('CANCEL'),
+          child: Text(l10n.cancelButtonLabel),
         ),
         TextButton(
           onPressed: () => _handleGoToSettingsButtonPress(context),
-          child: const Text('GO TO SETTINGS'),
+          child: Text(l10n.goToSettingsButtonLabel),
         ),
       ],
     );
