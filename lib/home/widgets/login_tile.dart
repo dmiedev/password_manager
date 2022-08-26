@@ -17,8 +17,8 @@ class LoginTile extends StatelessWidget {
     return Card(
       child: ListTile(
         onTap: onTap,
-        leading: const CircleAvatar(
-          child: Icon(Icons.password),
+        leading: CircleAvatar(
+          child: Text(serviceName.substring(0, 1)),
         ),
         title: Text(serviceName),
         subtitle: Text(userName),

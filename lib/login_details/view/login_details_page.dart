@@ -144,4 +144,11 @@ class _LoginDetailsViewState extends State<_LoginDetailsView> {
   void _handlePasswordCopyButtonPress() {
     context.read<LoginDetailsBloc>().add(const LoginDetailsPasswordCopied());
   }
+
+  @override
+  void dispose() {
+    _passwordFieldController.dispose();
+    _userNameFieldController.dispose();
+    super.dispose();
+  }
 }
