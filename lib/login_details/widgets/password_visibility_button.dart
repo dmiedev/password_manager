@@ -27,7 +27,7 @@ class PasswordVisibilityButton extends StatelessWidget {
     final l10n = AppLocalizations.of(context);
     context.read<LoginDetailsBloc>().add(
           LoginDetailsPasswordVisibilitySwitched(
-            dialogMessage: l10n.passwordAuthenticationDialogTitle,
+            authDialogMessage: l10n.passwordAuthenticationDialogTitle,
           ),
         );
   }

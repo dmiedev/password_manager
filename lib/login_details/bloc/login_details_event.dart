@@ -12,16 +12,23 @@ class LoginDetailsUserNameCopied extends LoginDetailsEvent {
 }
 
 class LoginDetailsPasswordCopied extends LoginDetailsEvent {
-  const LoginDetailsPasswordCopied();
+  const LoginDetailsPasswordCopied({
+    required this.authDialogMessage,
+  });
+
+  final String authDialogMessage;
+
+  @override
+  List<Object> get props => [authDialogMessage];
 }
 
 class LoginDetailsPasswordVisibilitySwitched extends LoginDetailsEvent {
   const LoginDetailsPasswordVisibilitySwitched({
-    required this.dialogMessage,
+    required this.authDialogMessage,
   });
 
-  final String dialogMessage;
+  final String authDialogMessage;
 
   @override
-  List<Object> get props => [dialogMessage];
+  List<Object> get props => [authDialogMessage];
 }

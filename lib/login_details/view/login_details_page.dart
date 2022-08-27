@@ -150,7 +150,12 @@ class _LoginDetailsViewState extends State<_LoginDetailsView> {
   }
 
   void _handlePasswordCopyButtonPress() {
-    context.read<LoginDetailsBloc>().add(const LoginDetailsPasswordCopied());
+    final l10n = AppLocalizations.of(context);
+    context.read<LoginDetailsBloc>().add(
+          LoginDetailsPasswordCopied(
+            authDialogMessage: l10n.passwordAuthenticationDialogTitle,
+          ),
+        );
   }
 
   @override
