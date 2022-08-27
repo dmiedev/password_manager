@@ -116,7 +116,7 @@
         "description": "A message indicating that password has been copied."
     },
 
-    "passwordAuthenticationDialogTitle": "Authenticate to show the password.",
+    "passwordAuthenticationDialogTitle": "Authenticate to obtain the password.",
     "@passwordAuthenticationDialogTitle": {
         "description": "The title of the Password Authentication dialog"
     }

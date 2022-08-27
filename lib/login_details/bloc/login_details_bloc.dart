@@ -45,6 +45,18 @@ class LoginDetailsBloc extends Bloc<LoginDetailsEvent, LoginDetailsState> {
     LoginDetailsPasswordCopied event,
     Emitter<LoginDetailsState> emit,
   ) async {
+    if (!state.passwordIsVisible) {
+      try {
+        await _authRepository.authenticate(message: event.authDialogMessage);
+      } on Exception {
+        emit(
+          state.copyWith(
+            action: () => LoginDetailsAction.authenticationFailure,
+          ),
+        );
+        return;
+      }
+    }
     final password = state.password ?? await _retrievePassword();
     await Clipboard.setData(ClipboardData(text: password));
     emit(
@@ -61,7 +73,7 @@ class LoginDetailsBloc extends Bloc<LoginDetailsEvent, LoginDetailsState> {
   ) async {
     if (!state.passwordIsVisible) {
       try {
-        await _authRepository.authenticate(message: event.dialogMessage);
+        await _authRepository.authenticate(message: event.authDialogMessage);
       } on Exception {
         emit(
           state.copyWith(
