@@ -1,3 +1,4 @@
+import 'package:auth_repository/auth_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:login_repository/login_repository.dart';
@@ -25,6 +26,7 @@ class LoginDetailsPage extends StatelessWidget {
       create: (context) => LoginDetailsBloc(
         login: login,
         loginRepository: RepositoryProvider.of<LoginRepository>(context),
+        authRepository: RepositoryProvider.of<AuthRepository>(context),
       ),
       child: const _LoginDetailsView(),
     );
@@ -138,6 +140,8 @@ class _LoginDetailsViewState extends State<_LoginDetailsView> {
         return l10n.userNameCopiedMessage;
       case LoginDetailsAction.passwordCopy:
         return l10n.passwordCopiedMessage;
+      case LoginDetailsAction.authenticationFailure:
+        return l10n.authenticationFailureMessage;
     }
   }
 

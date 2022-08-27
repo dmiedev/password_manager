@@ -16,7 +16,7 @@
         "description": "Message shown when authentication has failed."
     },
 
-    "authenticationDialogTitle": "Authenticate to access Password Manager",
+    "authenticationDialogTitle": "Authenticate to access Password Manager.",
     "@authenticationDialogTitle": {
         "description": "Text shown in the title of the authentication dialog."
     },
@@ -114,5 +114,10 @@
     "passwordCopiedMessage": "Password copied!",
     "@passwordCopiedMessage": {
         "description": "A message indicating that password has been copied."
+    },
+
+    "passwordAuthenticationDialogTitle": "Authenticate to show the password.",
+    "@passwordAuthenticationDialogTitle": {
+        "description": "The title of the Password Authentication dialog"
     }
 }

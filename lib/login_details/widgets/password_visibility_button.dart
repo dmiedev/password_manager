@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:password_manager/l10n/l10n.dart';
 import 'package:password_manager/login_details/bloc/login_details_bloc.dart';
 
 class PasswordVisibilityButton extends StatelessWidget {
@@ -23,8 +24,11 @@ class PasswordVisibilityButton extends StatelessWidget {
   }
 
   void _handlePress(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     context.read<LoginDetailsBloc>().add(
-          const LoginDetailsPasswordVisibilitySwitched(),
+          LoginDetailsPasswordVisibilitySwitched(
+            dialogMessage: l10n.passwordAuthenticationDialogTitle,
+          ),
         );
   }
 }
