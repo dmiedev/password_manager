@@ -1,3 +1,4 @@
+import 'package:auth_repository/auth_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/services.dart';
@@ -10,7 +11,9 @@ class LoginDetailsBloc extends Bloc<LoginDetailsEvent, LoginDetailsState> {
   LoginDetailsBloc({
     required Login login,
     required LoginRepository loginRepository,
+    required AuthRepository authRepository,
   })  : _loginRepository = loginRepository,
+        _authRepository = authRepository,
         super(LoginDetailsState(login: login)) {
     on<LoginDetailsUserNameCopied>(_handleUserNameCopied);
     on<LoginDetailsPasswordCopied>(_handlePasswordCopied);
@@ -20,6 +23,7 @@ class LoginDetailsBloc extends Bloc<LoginDetailsEvent, LoginDetailsState> {
   }
 
   final LoginRepository _loginRepository;
+  final AuthRepository _authRepository;
 
   Future<void> _handleUserNameCopied(
     LoginDetailsUserNameCopied event,
@@ -55,6 +59,18 @@ class LoginDetailsBloc extends Bloc<LoginDetailsEvent, LoginDetailsState> {
     LoginDetailsPasswordVisibilitySwitched event,
     Emitter<LoginDetailsState> emit,
   ) async {
+    if (!state.passwordIsVisible) {
+      try {
+        await _authRepository.authenticate(message: event.dialogMessage);
+      } on Exception {
+        emit(
+          state.copyWith(
+            action: () => LoginDetailsAction.authenticationFailure,
+          ),
+        );
+        return;
+      }
+    }
     final password = state.password ?? await _retrievePassword();
     emit(
       state.copyWith(

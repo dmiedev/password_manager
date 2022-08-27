@@ -3,6 +3,7 @@ part of 'login_details_bloc.dart';
 enum LoginDetailsAction {
   userNameCopy,
   passwordCopy,
+  authenticationFailure,
 }
 
 class LoginDetailsState {

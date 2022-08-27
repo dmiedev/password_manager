@@ -16,5 +16,12 @@ class LoginDetailsPasswordCopied extends LoginDetailsEvent {
 }
 
 class LoginDetailsPasswordVisibilitySwitched extends LoginDetailsEvent {
-  const LoginDetailsPasswordVisibilitySwitched();
+  const LoginDetailsPasswordVisibilitySwitched({
+    required this.dialogMessage,
+  });
+
+  final String dialogMessage;
+
+  @override
+  List<Object> get props => [dialogMessage];
 }
