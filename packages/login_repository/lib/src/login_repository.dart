@@ -11,6 +11,9 @@ class LoginRepository {
   })  : _loginBox = loginBox,
         _passwordStorage = passwordStorage ?? const FlutterSecureStorage() {
     _registerAdapters();
+    if (_loginBox != null) {
+      _loginStreamController.add(_loginBox!.values.toList());
+    }
   }
 
   static const _loginBoxName = 'logins';
